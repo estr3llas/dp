@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace dp.InstructionSet
+﻿namespace dp.DpxInstructionSet
 {
     public enum Opcodes : uint
     {
@@ -49,7 +43,7 @@ namespace dp.InstructionSet
 
     internal class InstructionSet
     {
-        public Instruction[] _instructions =
+        public List<Instruction> _instructions =
         [
             new Instruction
             {

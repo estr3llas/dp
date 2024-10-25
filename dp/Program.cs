@@ -1,12 +1,19 @@
-﻿using dp.InstructionSet;
+﻿using dp.DpxInstructionSet;
 
 namespace dp
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var instructionSet = new InstructionSet();
+
+            Console.WriteLine($"{"Mnemonic:",-10} {"Operands:",-8}");
+
+            foreach (var instruction in instructionSet._instructions)
+            {
+                Console.WriteLine($"{instruction.Mnemonic, -10} {instruction.NumberOfOperands, -8}");
+            }
         }
     }
 }
