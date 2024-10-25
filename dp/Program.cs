@@ -1,4 +1,6 @@
-﻿namespace dp
+﻿using dp.InstructionSet;
+
+namespace dp
 {
     internal class Program
     {
