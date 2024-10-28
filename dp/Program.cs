@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.IO.MemoryMappedFiles;
+using System.Text;
 
 using dp.DpxInstructionSet;
 using dp.DpxFileHandler;
+using dp.DpxDisassembler;
 
 namespace dp
 {
@@ -13,11 +15,15 @@ namespace dp
         {
             var handler = new DpxFileHandler.DpxFileHandler();
 
-            var _bytes = handler.DpxReadFile("C:\\Users\\OtavioPassos\\Downloads\\test.sct");
+            var _bytes = handler.DpxReadFile("C:\\Users\\__\\Downloads\\depex.dpx");
 
-            foreach (var i in _bytes)
+            var disasm = new DpxDisassembler.DpxDisassembler();
+
+            StringBuilder disassembled = disasm.DpxDisassembleBytecode(_bytes);
+
+            for (int i = 0; i < disassembled.Length; i++)
             {
-                Console.Write($"{i:X} ");
+                Console.Write($"{disassembled[i]}");
             }
         }
     }

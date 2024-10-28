@@ -42,39 +42,6 @@ public enum Opcodes : uint
 
 internal class DpxInstructionSet
 {
-    public List<Instruction> _instructions =
-    [
-        new Instruction
-        {
-            Mnemonic = MnemonicFromOpcode(Opcodes.PUSH), NumberOfOperands = 1
-        },
-        new Instruction
-        {
-            Mnemonic = MnemonicFromOpcode(Opcodes.AND), NumberOfOperands = 0
-        },
-        new Instruction
-        {
-            Mnemonic = MnemonicFromOpcode(Opcodes.OR), NumberOfOperands = 0
-        },
-        new Instruction
-        {
-            Mnemonic = MnemonicFromOpcode(Opcodes.NOT), NumberOfOperands = 0
-        },
-        new Instruction
-        {
-            Mnemonic = MnemonicFromOpcode(Opcodes.TRUE), NumberOfOperands = 0
-        },
-        new Instruction
-        {
-            Mnemonic = MnemonicFromOpcode(Opcodes.FALSE), NumberOfOperands = 0
-        },
-        new Instruction
-        {
-            Mnemonic = MnemonicFromOpcode(Opcodes.END), NumberOfOperands = 0
-        },
-
-    ];
-
     public static string MnemonicFromOpcode(Opcodes opcode)
     {
         return opcode switch
