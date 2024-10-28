@@ -41,7 +41,7 @@
         END = 0x8
     }
 
-    internal class InstructionSet
+    internal class DpxInstructionSet
     {
         public List<Instruction> _instructions =
         [

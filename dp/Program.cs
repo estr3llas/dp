@@ -6,7 +6,7 @@ namespace dp
     {
         public static void Main(string[] args)
         {
-            var instructionSet = new InstructionSet();
+            var instructionSet = new DpxInstructionSet.DpxInstructionSet();
 
             Console.WriteLine($"{"Mnemonic:",-10} {"Operands:",-8}");
 
