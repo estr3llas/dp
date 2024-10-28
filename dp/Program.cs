@@ -1,4 +1,9 @@
-﻿using dp.DpxInstructionSet;
+﻿using System;
+using System.IO;
+using System.IO.MemoryMappedFiles;
+
+using dp.DpxInstructionSet;
+using dp.DpxFileHandler;
 
 namespace dp
 {
@@ -6,13 +11,13 @@ namespace dp
     {
         public static void Main(string[] args)
         {
-            var instructionSet = new DpxInstructionSet.DpxInstructionSet();
+            var handler = new DpxFileHandler.DpxFileHandler();
 
-            Console.WriteLine($"{"Mnemonic:",-10} {"Operands:",-8}");
+            var _bytes = handler.DpxReadFile("C:\\Users\\OtavioPassos\\Downloads\\test.sct");
 
-            foreach (var instruction in instructionSet._instructions)
+            foreach (var i in _bytes)
             {
-                Console.WriteLine($"{instruction.Mnemonic, -10} {instruction.NumberOfOperands, -8}");
+                Console.Write($"{i:X} ");
             }
         }
     }

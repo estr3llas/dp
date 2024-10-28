@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Reflection;
 
-namespace dp.DpxFile;
+namespace dp.DpxFileHandler;
 
 //
 // https://stackoverflow.com/questions/23588944/better-to-check-if-length-exceeds-max-path-or-catch-pathtoolongexception
@@ -36,7 +36,7 @@ public class PathHelper
         MaxPathLength = Convert.ToInt32(maxPathField.GetValue(null));
 
         //
-        //the NUL terminator is part of MAX_PATH https://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath
+        //the NULL terminator is part of MAX_PATH https://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath
         //
         MaxPathLength--;
     }
@@ -44,23 +44,49 @@ public class PathHelper
 
     public static bool IsPathWithinLimits(string fullPathAndFilename)
     {
-        return fullPathAndFilename.Length <= MaxPathLength;
+        return fullPathAndFilename.Length >= MaxPathLength;
     }
 
 }
-public class DpxFile : PathHelper
+public class DpxFileHandler
 {
-    public MemoryMappedFile DpxMapFile(string filename)
+    public MemoryMappedFile? DpxMapFile(string filename)
     {
+        if (string.IsNullOrWhiteSpace(filename))
+        {
+            Console.WriteLine($"[-] {filename} is null or whitespace.");
+            return null;
+        }
 
-        if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentNullException($"[-] {filename} is null or whitespace.");
-
-        if (!IsPathWithinLimits(filename)) throw new PathTooLongException($"[-] {filename} is too long.");
+        if (!PathHelper.IsPathWithinLimits(filename))
+        {
+            Console.WriteLine($"[-] {filename}'s path is too long.");
+            return null;
+        }
 
         //
         // No need to check for the file's actual existence.
+        //
+        // https://learn.microsoft.com/en-us/dotnet/api/system.io.filemode?view=net-8.0#system-io-filemode-open
         // For FileMode.Open, a FileNotFoundException exception is thrown if the file does not exist.
         //
         return MemoryMappedFile.CreateFromFile(filename, FileMode.Open);
+    }
+
+    public byte[]? DpxReadFile(string filename)
+    {
+        if (string.IsNullOrWhiteSpace(filename))
+        {
+            Console.WriteLine($"[-] {filename} is null or whitespace.");
+            return null;
+        }
+
+        if (!PathHelper.IsPathWithinLimits(filename))
+        {
+            Console.WriteLine($"[-] {filename}'s path is too long.");
+            return null;
+        }
+
+        return File.ReadAllBytes(filename);
     }
 }

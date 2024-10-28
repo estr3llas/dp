@@ -8,4 +8,8 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="DpxDisassembler\" />
+  </ItemGroup>
+
 </Project>
