@@ -21,10 +21,8 @@ namespace dp
 
             StringBuilder disassembled = disasm.DpxDisassembleBytecode(_bytes);
 
-            for (int i = 0; i < disassembled.Length; i++)
-            {
-                Console.Write($"{disassembled[i]}");
-            }
+            Console.Write(disassembled);
+
         }
     }
 }
