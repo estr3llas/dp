@@ -58,9 +58,3 @@ internal class DpxInstructionSet
     }
 
 }
-
-public class Instruction
-{
-    public required string Mnemonic { get; init; }
-    public required uint NumberOfOperands { get; init; }
-}
