@@ -25,9 +25,10 @@ namespace dp
         [Option("-d", Description = "Disassemble the given depex")]
         public bool OptionDisassemble { get; }
 
+        [Option("-o", Description = "File to receive the output")]
+        public string OutputFile { get; } = "output.txt";
 
-
-    private async Task<int> OnExecuteAsync(CommandLineApplication app, CancellationToken cancellationToken = default)
+        private async Task<int> OnExecuteAsync(CommandLineApplication app, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(filename))
             {
@@ -61,6 +62,17 @@ namespace dp
                 return 0;
             }
 
+
+            if (!string.IsNullOrWhiteSpace(OutputFile))
+            {
+                var disassembler = new DpxDisassembler.DpxDisassembler();
+                var depex = FileHandler.DpxReadFile(filename);
+                var bodyDisassembledBytecode = disassembler.DpxDisassembleBody(depex);
+
+                File.WriteAllText(OutputFile, bodyDisassembledBytecode.ToString());
+
+                return 0;
+            }
 
             return 0;
         }
