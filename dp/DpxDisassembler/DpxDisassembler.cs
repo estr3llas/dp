@@ -7,7 +7,21 @@ public class DpxDisassembler
 {
     public Guid DpxBytesToGuid(byte[] bytes) => new Guid(bytes);
 
-    public StringBuilder? DpxDisassembleBytecode(byte[] bytecode)
+    private static int _index = 0;
+
+    public byte[] DpxDisassembleHeader(byte[] bytecode)
+    {
+        var header = new byte[4];
+
+        for (; _index < 4; _index++)
+        {
+            header[_index] = bytecode[_index];
+        }
+
+        return header;
+    }
+
+    public StringBuilder? DpxDisassembleBody(byte[] bytecode)
     {
         if (bytecode.Length < 2)
         {
@@ -17,9 +31,10 @@ public class DpxDisassembler
 
         var disassembled = new StringBuilder();
 
-        for (var i = 0; i < bytecode.Length; i++)
+        for (;_index < bytecode.Length; _index++)
         {
-            var opcode = (Opcodes)bytecode[i];
+
+            var opcode = (Opcodes)bytecode[_index];
             string mnemonic;
 
             switch (opcode)
@@ -29,11 +44,11 @@ public class DpxDisassembler
                     disassembled.AppendLine(mnemonic);
 
                     var byteArray = new byte[16];
-                    Array.Copy(bytecode, i + 1, byteArray, 0, 16);
+                    Array.Copy(bytecode, _index + 1, byteArray, 0, 16);
                     var guid = DpxBytesToGuid(byteArray);
                     disassembled.AppendLine(guid.ToString());
 
-                    i += 16;
+                    _index += 16;
                     break;
 
                 case Opcodes.AND:
@@ -67,7 +82,7 @@ public class DpxDisassembler
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException($"Unknown opcode: {i}");
+                    throw new ArgumentOutOfRangeException($"Unknown opcode: {_index}");
             }
         }
 
