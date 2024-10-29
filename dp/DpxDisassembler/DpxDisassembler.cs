@@ -1,14 +1,11 @@
-﻿namespace dp.DpxDisassembler;
+﻿using System.Text;
+
+namespace dp.DpxDisassembler;
 
 using dp.DpxInstructionSet;
-using System.Text;
-
 public class DpxDisassembler
 {
-    public Guid DpxBytesToGuid(byte[] bytes)
-    {
-        return new Guid(bytes);
-    }
+    public Guid DpxBytesToGuid(byte[] bytes) => new Guid(bytes);
 
     public StringBuilder? DpxDisassembleBytecode(byte[] bytecode)
     {

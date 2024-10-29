@@ -13,13 +13,11 @@ namespace dp
     {
         public static void Main(string[] args)
         {
-            var handler = new DpxFileHandler.DpxFileHandler();
-
-            var _bytes = handler.DpxReadFile("C:\\Users\\__\\Downloads\\depex.dpx");
+            var _bytes = FileHandler.DpxReadFile(args[1]);
 
             var disasm = new DpxDisassembler.DpxDisassembler();
 
-            StringBuilder disassembled = disasm.DpxDisassembleBytecode(_bytes);
+            var disassembled = disasm.DpxDisassembleBytecode(_bytes);
 
             Console.Write(disassembled);
 
