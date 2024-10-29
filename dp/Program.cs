@@ -13,11 +13,9 @@ namespace dp
     {
         public static void Main(string[] args)
         {
-            var _bytes = FileHandler.DpxReadFile(args[1]);
-
             var disasm = new DpxDisassembler.DpxDisassembler();
 
-            var disassembled = disasm.DpxDisassembleBytecode(_bytes);
+            var disassembled = disasm.DpxDisassembleBytecode(FileHandler.DpxReadFile(args[1]));
 
             Console.Write(disassembled);
 
