@@ -50,6 +50,12 @@ namespace dp
                     Console.WriteLine("[-] Depex file seems to be null. Aborting...");
                 }
 
+                if (!disassembler.DpxCheckValidBody(depex))
+                {
+                    Console.WriteLine("[-] Invalid depex: First byte is not an instruction.");
+                    return 1;
+                }
+
                 //
                 // Extract & print the depex's header
                 //
@@ -74,7 +80,7 @@ namespace dp
             //
             // Option "-o" was present.
             //
-            if (!string.IsNullOrWhiteSpace(OutputFile))
+            if (string.IsNullOrWhiteSpace(OutputFile))
             {
                 var disassembler = new DpxDisassembler.DpxDisassembler();
                 var depex = FileHandler.DpxReadFile(filename);

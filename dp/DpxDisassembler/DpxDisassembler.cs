@@ -3,6 +3,7 @@
 namespace dp.DpxDisassembler;
 
 using DpxInstructionSet;
+
 public class DpxDisassembler
 {
     public Guid DpxBytesToGuid(byte[] bytes) => new(bytes);
@@ -14,7 +15,14 @@ public class DpxDisassembler
     //
     private static int _index = 0;
 
-    public byte[] DpxDisassembleHeader(byte[] bytecode)
+    public bool DpxCheckValidBody(byte[] bytecode) => (Opcodes)bytecode[4] == Opcodes.PUSH || 
+                                                      (Opcodes)bytecode[4] == Opcodes.AND || 
+                                                      (Opcodes)bytecode[4] == Opcodes.OR || 
+                                                      (Opcodes)bytecode[4] == Opcodes.NOT ||
+                                                      (Opcodes)bytecode[4] == Opcodes.FALSE ||
+                                                      (Opcodes)bytecode[4] == Opcodes.TRUE;
+
+public byte[] DpxDisassembleHeader(byte[] bytecode)
     {
         var header = new byte[4];
 
