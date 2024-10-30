@@ -26,7 +26,7 @@ namespace dp
         public bool OptionDisassemble { get; }
 
         [Option("-o", Description = "File to receive the output")]
-        public string OutputFile { get; } = "output.txt";
+        public string OutputFile { get; set; }
 
         private async Task<int> OnExecuteAsync(CommandLineApplication app, CancellationToken cancellationToken = default)
         {
@@ -35,6 +35,8 @@ namespace dp
                 app.ShowHelp();
                 return 0;
             }
+
+            var data = new StringBuilder();
 
             //
             // Option "-d" was present.
@@ -48,6 +50,7 @@ namespace dp
                 if (depex == null && depex.Length < 0)
                 {
                     Console.WriteLine("[-] Depex file seems to be null. Aborting...");
+                    return 1;
                 }
 
                 if (!disassembler.DpxCheckValidBody(depex))
@@ -74,21 +77,16 @@ namespace dp
                 Console.WriteLine("---------------------------------");
                 var bodyDisassembledBytecode = disassembler.DpxDisassembleBody(depex);
                 Console.Write(bodyDisassembledBytecode.ToString());
-                return 0;
+
+                _ = data.Append(bodyDisassembledBytecode.ToString());
             }
 
             //
             // Option "-o" was present.
             //
-            if (string.IsNullOrWhiteSpace(OutputFile))
+            if (!string.IsNullOrWhiteSpace(OutputFile))
             {
-                var disassembler = new DpxDisassembler.DpxDisassembler();
-                var depex = FileHandler.DpxReadFile(filename);
-                var bodyDisassembledBytecode = disassembler.DpxDisassembleBody(depex);
-
-                File.WriteAllText(OutputFile, bodyDisassembledBytecode.ToString());
-
-                return 0;
+                File.WriteAllText(OutputFile, data.ToString());
             }
 
             return 0;

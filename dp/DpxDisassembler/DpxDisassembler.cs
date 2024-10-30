@@ -15,6 +15,9 @@ public class DpxDisassembler
     //
     private static int _index = 0;
 
+    //
+    // The first byte of the depex's body MUST be a instruction
+    //
     public bool DpxCheckValidBody(byte[] bytecode) => (Opcodes)bytecode[4] == Opcodes.PUSH || 
                                                       (Opcodes)bytecode[4] == Opcodes.AND || 
                                                       (Opcodes)bytecode[4] == Opcodes.OR || 
