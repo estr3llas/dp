@@ -18,14 +18,17 @@ public class DpxDisassembler
     //
     // The first byte of the depex's body MUST be a instruction
     //
-    public bool DpxCheckValidBody(byte[] bytecode) => (Opcodes)bytecode[4] == Opcodes.PUSH || 
-                                                      (Opcodes)bytecode[4] == Opcodes.AND || 
-                                                      (Opcodes)bytecode[4] == Opcodes.OR || 
-                                                      (Opcodes)bytecode[4] == Opcodes.NOT ||
-                                                      (Opcodes)bytecode[4] == Opcodes.FALSE ||
-                                                      (Opcodes)bytecode[4] == Opcodes.TRUE;
+    public bool DpxCheckValidBody(byte[] bytecode) => new[]
+    {
+        Opcodes.PUSH, 
+        Opcodes.AND,
+        Opcodes.OR, 
+        Opcodes.NOT, 
+        Opcodes.FALSE,
+        Opcodes.TRUE
+    }.Contains((Opcodes)bytecode[4]);
 
-public byte[] DpxDisassembleHeader(byte[] bytecode)
+    public byte[] DpxDisassembleHeader(byte[] bytecode)
     {
         var header = new byte[4];
 
