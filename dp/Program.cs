@@ -8,7 +8,6 @@ using dp.DpxFileHandler;
 using dp.DpxDisassembler;
 
 using McMaster.Extensions.CommandLineUtils;
-using System.Net.Mail;
 
 namespace dp
 {
