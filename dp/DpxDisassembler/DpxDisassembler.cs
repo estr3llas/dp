@@ -83,7 +83,7 @@ public class DpxDisassembler
         //
         if (bytecode.Length < 2)
         {
-            Console.WriteLine(@"[-] Invalid Dependency Expression: Too short.");
+            Console.WriteLine("[-] Invalid Dependency Expression: Too short.");
             return null;
         }
 
@@ -150,32 +150,12 @@ public class DpxDisassembler
                 // Other cases are standard, meaning no operands at all.
                 //
                 case Opcodes.AND:
-                    mnemonic = DpxInstructionSet.MnemonicFromOpcode(Opcodes.AND);
-                    disassembled.AppendLine(mnemonic);
-                    break;
-
                 case Opcodes.OR:
-                    mnemonic = DpxInstructionSet.MnemonicFromOpcode(Opcodes.OR);
-                    disassembled.AppendLine(mnemonic);
-                    break;
-
                 case Opcodes.NOT:
-                    mnemonic = DpxInstructionSet.MnemonicFromOpcode(Opcodes.NOT);
-                    disassembled.AppendLine(mnemonic);
-                    break;
-
                 case Opcodes.TRUE:
-                    mnemonic = DpxInstructionSet.MnemonicFromOpcode(Opcodes.TRUE);
-                    disassembled.AppendLine(mnemonic);
-                    break;
-
                 case Opcodes.FALSE:
-                    mnemonic = DpxInstructionSet.MnemonicFromOpcode(Opcodes.FALSE);
-                    disassembled.AppendLine(mnemonic);
-                    break;
-
                 case Opcodes.END:
-                    mnemonic = DpxInstructionSet.MnemonicFromOpcode(Opcodes.END);
+                    mnemonic = DpxInstructionSet.MnemonicFromOpcode(opcode);
                     disassembled.AppendLine(mnemonic);
                     break;
 
