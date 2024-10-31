@@ -42,27 +42,27 @@ namespace dp
             //
             if (OptionDisassemble)
             {
-                Console.WriteLine("[+] Disassembled output:\n");
+                Console.WriteLine($@"[+] Disassembled output:");
                 var disassembler = new DpxDisassembler.DpxDisassembler();
                 var depex = FileHandler.DpxReadFile(filename);
 
                 if (depex == null && depex.Length < 0)
                 {
-                    Console.WriteLine("[-] Depex file seems to be null. Aborting...");
+                    Console.WriteLine(@"[-] Depex file seems to be null. Aborting...");
                     return 1;
                 }
 
                 if (!disassembler.DpxCheckValidBody(depex))
                 {
-                    Console.WriteLine("[-] Invalid depex: First byte is not an instruction.");
+                    Console.WriteLine(@"[-] Invalid depex: First byte is not an instruction.");
                     return 1;
                 }
 
                 //
                 // Extract & print the depex's header
                 //
-                Console.WriteLine("\n[i] Header: ");
-                Console.WriteLine("---------------------------------");
+                Console.WriteLine($@"{Environment.NewLine}[i] Header: ");
+                Console.WriteLine(@"---------------------------------");
                 var headerDisassembledBytecode = disassembler.DpxDisassembleHeader(depex);
                 foreach (var _byte in headerDisassembledBytecode)
                 {
@@ -72,8 +72,8 @@ namespace dp
                 //
                 // Disassemble the depex's body
                 //
-                Console.WriteLine("\n\n[i] Body: ");
-                Console.WriteLine("---------------------------------");
+                Console.WriteLine($@"{Environment.NewLine} {Environment.NewLine}[i] Body: ");
+                Console.WriteLine(@"---------------------------------");
                 var bodyDisassembledBytecode = disassembler.DpxDisassembleBody(depex);
                 Console.Write(bodyDisassembledBytecode.ToString());
 

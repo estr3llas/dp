@@ -10,7 +10,7 @@ using System.IO;
 
 public class DpxDisassembler
 {
-    public Guid DpxBytesToGuid(byte[] bytes) => new(bytes);
+    public static Guid DpxBytesToGuid(byte[] bytes) => new(bytes);
 
     //
     // This will be our static index.
@@ -83,7 +83,7 @@ public class DpxDisassembler
         //
         if (bytecode.Length < 2)
         {
-            Console.WriteLine("[-] Invalid Dependency Expression: Too short.");
+            Console.WriteLine(@"[-] Invalid Dependency Expression: Too short.");
             return null;
         }
 
