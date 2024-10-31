@@ -1,8 +1,12 @@
-﻿using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
+using System.Net.Security;
+using System.Text;
 
 namespace dp.DpxDisassembler;
 
 using DpxInstructionSet;
+using System.IO;
 
 public class DpxDisassembler
 {
@@ -14,6 +18,7 @@ public class DpxDisassembler
     // Then, increased by DpxDisassembleBody to actually disassemble the depex's body.
     //
     private static int _index = 0;
+    private static readonly char[] Separator = new[] { ',', '\n' };
 
     //
     // The first byte of the depex's body MUST be a instruction
@@ -27,6 +32,22 @@ public class DpxDisassembler
         Opcodes.FALSE,
         Opcodes.TRUE
     }.Contains((Opcodes)bytecode[4]);
+
+    public static string DpxCheckIfGuidIsKnown(Guid guid)
+    {
+        var guidsResource = Properties.Resources.guids.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
+        var upperGuid = guid.ToString().ToUpper();
+
+        for (var i = 0; i < guidsResource.Length - 1; i++)
+        {
+            if (upperGuid.Equals(guidsResource[i]))
+            {
+                return guidsResource[i+1].Trim();
+            }
+        }
+
+        return "N/A";
+    }
 
     public byte[] DpxDisassembleHeader(byte[] bytecode)
     {
@@ -88,6 +109,9 @@ public class DpxDisassembler
                     Array.Copy(bytecode, _index + 1, byteArray, 0, 16);
                     var guid = DpxBytesToGuid(byteArray);
                     disassembled.AppendLine(guid.ToString());
+                    
+                    var isKnownGuid = DpxCheckIfGuidIsKnown(guid);
+                    disassembled.AppendLine(isKnownGuid);
 
                     //
                     // Increase current index by 16 bytes.
