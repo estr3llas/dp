@@ -35,9 +35,16 @@ public class DpxDisassembler
 
     public static string DpxCheckIfGuidIsKnown(Guid guid)
     {
+        //
+        // Extract GUIDs database from the executable's resources.
+        //
         var guidsResource = Properties.Resources.guids.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
         var upperGuid = guid.ToString().ToUpper();
 
+        //
+        // Iterate over the whole GUID database and compare our argument.
+        // TODO: optimize this
+        //
         for (var i = 0; i < guidsResource.Length - 1; i++)
         {
             if (upperGuid.Equals(guidsResource[i]))
@@ -132,7 +139,8 @@ public class DpxDisassembler
 
 
                     //
-                    // Increase current index by 16 bytes.
+                    // Increase current index by 16 bytes (size of GUID, in bytes)
+                    // Our index now points to the next instruction.
                     //
                     _index += 16;
                     break;
