@@ -46,7 +46,7 @@ public class DpxDisassembler
             }
         }
 
-        return "N/A";
+        return string.Empty;
     }
 
     public byte[] DpxDisassembleHeader(byte[] bytecode)
@@ -94,13 +94,14 @@ public class DpxDisassembler
 
             switch (opcode)
             {
+                //
+                // PUSH has 1 operand.
+                //
                 case Opcodes.PUSH:
                     //
-                    // PUSH has 1 operand.
                     // Disassemble the mnemonic
                     //
                     mnemonic = DpxInstructionSet.MnemonicFromOpcode(Opcodes.PUSH);
-                    disassembled.AppendLine(mnemonic);
 
                     //
                     // Then, for the next 16 bytes, extract its operand.
@@ -108,10 +109,27 @@ public class DpxDisassembler
                     var byteArray = new byte[16];
                     Array.Copy(bytecode, _index + 1, byteArray, 0, 16);
                     var guid = DpxBytesToGuid(byteArray);
-                    disassembled.AppendLine(guid.ToString());
                     
+                    //
+                    // Check if the operand (GUID) is Known by comparing with UEFITool's guids.csv
+                    //
                     var isKnownGuid = DpxCheckIfGuidIsKnown(guid);
-                    disassembled.AppendLine(isKnownGuid);
+
+                    //
+                    // If GUID is known, append it as:
+                    // PUSH  EfiPeiMemoryDiscoveredPpiGuid            (f894643d-c449-42d1-8ea8-85bdd8c65bde)
+                    // If not known, append as:
+                    // PUSH  1a266768-fd43-4e18-a88a-35c794c3910e
+                    //
+                    if (!string.IsNullOrEmpty(isKnownGuid))
+                    {
+                        disassembled.AppendLine($"{mnemonic,-5} {isKnownGuid,-40} ({guid})");
+                    }
+                    else
+                    {
+                        disassembled.AppendLine($"{mnemonic,-5} {guid}");
+                    }
+
 
                     //
                     // Increase current index by 16 bytes.
