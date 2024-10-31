@@ -66,7 +66,7 @@ namespace dp
                 var headerDisassembledBytecode = disassembler.DpxDisassembleHeader(depex);
                 foreach (var _byte in headerDisassembledBytecode)
                 {
-                    Console.Write($"{_byte:X} ");
+                    Console.Write($"{_byte:X2} ");
                 }
 
                 //
