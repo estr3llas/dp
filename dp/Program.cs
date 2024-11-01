@@ -18,13 +18,13 @@ namespace dp
     {
         private static Task<int> Main(string[] args) => CommandLineApplication.ExecuteAsync<Program>(args);
 
-        [Argument(0, Description = "The depex file to be processed.")]
+        [Argument(0, Description = @"The depex file to be processed.")]
         private string filename { get; }
 
-        [Option("-d", Description = "Disassemble the given depex")]
+        [Option("-d", Description = @"Disassemble the given depex")]
         public bool OptionDisassemble { get; }
 
-        [Option("-o", Description = "File to receive the output")]
+        [Option("-o", Description = @"File to receive the output")]
         public string OutputFile { get; set; }
 
         private async Task<int> OnExecuteAsync(CommandLineApplication app, CancellationToken cancellationToken = default)
@@ -42,7 +42,7 @@ namespace dp
             //
             if (OptionDisassemble)
             {
-                Console.WriteLine($@"[+] Disassembled output:");
+                Console.WriteLine(@"[+] Disassembled output:");
                 var disassembler = new DpxDisassembler.DpxDisassembler();
                 var depex = FileHandler.DpxReadFile(filename);
 

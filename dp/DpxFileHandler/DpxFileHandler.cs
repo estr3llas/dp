@@ -10,13 +10,13 @@ public static class FileHandler
     {
         if (string.IsNullOrWhiteSpace(filename))
         {
-            Console.WriteLine($"[-] {filename} is null or whitespace.");
+            Console.WriteLine(@$"[-] {filename} is null or whitespace.");
             return null;
         }
 
         if (!PathHelper.IsPathWithinLimits(filename))
         {
-            Console.WriteLine($"[-] {filename}'s path is too long.");
+            Console.WriteLine(@$"[-] {filename}'s path is too long.");
             return null;
         }
 

@@ -18,7 +18,7 @@ public class DpxDisassembler
     // Then, increased by DpxDisassembleBody to actually disassemble the depex's body.
     //
     private static int _index = 0;
-    private static readonly char[] Separator = new[] { ',', '\n' };
+    private static readonly char[] Separator = new[] { ',' , '\n' };
 
     //
     // The first byte of the depex's body MUST be a instruction
@@ -83,7 +83,7 @@ public class DpxDisassembler
         //
         if (bytecode.Length < 2)
         {
-            Console.WriteLine("[-] Invalid Dependency Expression: Too short.");
+            Console.WriteLine(@"[-] Invalid Dependency Expression: Too short.");
             return null;
         }
 
@@ -130,11 +130,11 @@ public class DpxDisassembler
                     //
                     if (!string.IsNullOrEmpty(isKnownGuid))
                     {
-                        disassembled.AppendLine($"{mnemonic,-5} {isKnownGuid,-40} ({guid})");
+                        disassembled.AppendLine(@$"{mnemonic,-5} {isKnownGuid,-45} {guid}");
                     }
                     else
                     {
-                        disassembled.AppendLine($"{mnemonic,-5} {guid}");
+                        disassembled.AppendLine(@$"{mnemonic,-5} {guid}");
                     }
 
 
@@ -163,7 +163,7 @@ public class DpxDisassembler
                 // Invalid opcode encountered.
                 //
                 default:
-                    throw new ArgumentOutOfRangeException($"Unknown opcode: {_index}");
+                    throw new ArgumentOutOfRangeException(@$"Unknown opcode: {_index}");
             }
         }
 

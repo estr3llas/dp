@@ -53,7 +53,7 @@ internal class DpxInstructionSet
             Opcodes.TRUE => "TRUE",
             Opcodes.FALSE => "FALSE",
             Opcodes.END => "END",
-            _ => throw new ArgumentOutOfRangeException(nameof(opcode), $"[-] Invalid Opcode {opcode}")
+            _ => throw new ArgumentOutOfRangeException(nameof(opcode), @$"[-] Invalid Opcode {opcode}")
         };
     }
 
