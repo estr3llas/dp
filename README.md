@@ -14,21 +14,39 @@ Options:
   -o        File to receive the output
 ```
 
-## Example of parsed depex:
+## Example of a disassembled dependency expression:
+
+For `Section_DXE_dependency_SetupUtility_SetupUtility.sct` (which was extracted "as is" from [UEFITool](https://github.com/LongSoft/UEFITool/releases)), one gets the following output:
 
 ```
 [+] Disassembled output:
 
 [i] Header:
 ---------------------------------
-3A 00 00 1B
+A6 00 00 13
 
 [i] Body:
 ---------------------------------
-PUSH  EfiPeiMemoryDiscoveredPpiGuid            (f894643d-c449-42d1-8ea8-85bdd8c65bde)
-PUSH  EfiPeiPcdPpiGuid                         (01f34d25-4de2-23ad-3ff3-36353ff323f1)
-PUSH  1a266768-fd43-4e18-a88a-35c794c3910e
+PUSH  14afc99e-e23e-11e1-a234-d0df9a35c106
+PUSH  d4d2f201-50e8-4d45-8e05-fd49a82a1569
+PUSH  EfiVariableArchProtocolGuid                   1e5668e2-8481-11d4-bcf1-0080c73c8881
+PUSH  EfiVariableWriteArchProtocolGuid              6441f818-6362-4e44-b570-7dba31dd2453
+PUSH  EfiBdsArchProtocolGuid                        665e3ff6-46cc-11d4-9a38-0090273fc14d
+PUSH  EfiPcdProtocolGuid                            13a3f0f6-264a-3ef0-f2e0-dec512342f34
+PUSH  EfiHiiStringProtocolGuid                      0fd96974-23aa-4cdc-b9cb-98d17750322a
+PUSH  EfiHiiDatabaseProtocolGuid                    ef9fc172-a1b2-4693-b327-6d32fc416042
+PUSH  EfiHiiConfigRoutingProtocolGuid               587e72d7-cc50-4f79-8209-ca291fc1a10f
+AND
+AND
+AND
+AND
+AND
+AND
 AND
 AND
 END
 ```
+
+## References:
+- https://uefi.org/specs/PI/1.8/V1_PEI_Foundation.html#dependency-expressions
+- https://uefi.org/specs/PI/1.8/V1_Dependency_Expression_Grammar.html
