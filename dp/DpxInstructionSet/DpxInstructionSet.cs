@@ -1,5 +1,10 @@
 ﻿namespace dp.DpxInstructionSet;
-public enum Opcodes : uint
+
+// 
+// All opcodes are 8-bit values
+// https://uefi.org/specs/PI/1.8/V1_PEI_Foundation.html#dependency-expression-instruction-set
+//
+public enum Opcodes : sbyte
 {
     //
     // Pushes a Boolean value onto the stack. 

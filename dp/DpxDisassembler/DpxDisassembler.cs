@@ -130,11 +130,11 @@ public class DpxDisassembler
                     //
                     if (!string.IsNullOrEmpty(isKnownGuid))
                     {
-                        disassembled.AppendLine(@$"{mnemonic,-5} {isKnownGuid,-45} {guid}");
+                        disassembled.AppendLine(@$"{mnemonic,-5} {isKnownGuid,-45} {guid.ToString().ToUpper()}");
                     }
                     else
                     {
-                        disassembled.AppendLine(@$"{mnemonic,-5} {guid}");
+                        disassembled.AppendLine(@$"{mnemonic,-5} {guid.ToString().ToUpper()}");
                     }
 
 
