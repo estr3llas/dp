@@ -21,7 +21,7 @@ public class DpxDisassembler
     private static readonly char[] Separator = new[] { ',' , '\n' };
 
     //
-    // The first byte of the depex's body MUST be a instruction
+    // Check if the depex was extracted from UEFITool using the "extract body" option
     //
     public bool DpxCheckValidBody(byte[] bytecode) => new[]
     {
@@ -31,7 +31,7 @@ public class DpxDisassembler
         Opcodes.NOT, 
         Opcodes.FALSE,
         Opcodes.TRUE
-    }.Contains((Opcodes)bytecode[4]);
+    }.Contains((Opcodes)bytecode[0]);
 
     public static string DpxCheckIfGuidIsKnown(Guid guid)
     {

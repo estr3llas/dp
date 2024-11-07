@@ -52,21 +52,23 @@ namespace dp
                     return 1;
                 }
 
+                //
+                // Check whether the depex file was extracted via "as is", or via "extract body"
+                // if "as is", then the 1st byte is not an instruction, so we account for a header.
+                // if "extract body", the first byte is indeed an instruction, so we do not extract the header.
+                //
                 if (!disassembler.DpxCheckValidBody(depex))
                 {
-                    Console.WriteLine(@"[-] Invalid depex: First byte is not an instruction.");
-                    return 1;
-                }
-
-                //
-                // Extract & print the depex's header
-                //
-                Console.WriteLine($@"{Environment.NewLine}[i] Header: ");
-                Console.WriteLine(@"---------------------------------");
-                var headerDisassembledBytecode = disassembler.DpxDisassembleHeader(depex);
-                foreach (var _byte in headerDisassembledBytecode)
-                {
-                    Console.Write($"{_byte:X2} ");
+                    //
+                    // Extract & print the depex's header
+                    //
+                    Console.WriteLine($@"{Environment.NewLine}[i] Header: ");
+                    Console.WriteLine(@"---------------------------------");
+                    var headerDisassembledBytecode = disassembler.DpxDisassembleHeader(depex);
+                    foreach (var _byte in headerDisassembledBytecode)
+                    {
+                        Console.Write($"{_byte:X2} ");
+                    }
                 }
 
                 //
