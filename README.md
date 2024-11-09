@@ -14,6 +14,17 @@ Options:
   -o        File to receive the output
 ```
 
+## Extracting a dependency expression
+
+1. Download [UEFITool](https://github.com/LongSoft/UEFITool/releases).
+2. Drag 'N' Drop UEFI image.
+3. On `Action > Search > Text/GUID`, search for your desired module (i.e. "PEI"/"DXE"/"[GUID]")
+4. At the bottom, double-click on the search result.
+5. Right-click on "XXX dependency section".
+6. Choose "Extract as is" or "Extract body...".
+
+![example](./assets/optane-example.png)
+
 ## Example of a disassembled dependency expression:
 
 For `Section_DXE_dependency_SetupUtility_SetupUtility.sct` (which was extracted "as is" from [UEFITool](https://github.com/LongSoft/UEFITool/releases)), one gets the following output:
