@@ -1,4 +1,4 @@
-# dp (depex parser)
+# dpx
 
 ```
 Parse/patch UEFI module's dependency expressions
