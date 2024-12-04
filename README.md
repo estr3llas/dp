@@ -61,3 +61,5 @@ END
 ## References:
 - https://uefi.org/specs/PI/1.8/V1_PEI_Foundation.html#dependency-expressions
 - https://uefi.org/specs/PI/1.8/V1_Dependency_Expression_Grammar.html
+
+*dpx uses SemVer format for versioning
